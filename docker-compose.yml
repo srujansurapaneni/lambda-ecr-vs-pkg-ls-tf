@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  localstack:
+    image: localstack/localstack:latest
+    container_name: localstack
+    environment:
+      - LOCALSTACK_API_KEY=${LOCALSTACK_API_KEY}
+      - SERVICES=cloudwatch,dynamodb,ecs,ecr,edge,iam,s3,sqs,sns,sts,lambda
+      - USE_SSL=false
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - AWS_REGION=${AWS_REGION}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - DEBUG=${DEBUG}
+      - HOSTNAME=localhost
+    ports:
+      - "4500-4621:4500-4621"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
